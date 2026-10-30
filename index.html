@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0f10">
+  <meta name="description" content="Jem IPTV Player Pro - Premium IPTV Web Player">
+  <title>Jem IPTV Player Pro</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icon.svg">
+  <link rel="stylesheet" href="style.css">
+
+  <script defer src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+  <script defer src="playlist.js"></script>
+  <script defer src="player.js"></script>
+  <script defer src="app.js"></script>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="topbar">
+      <button class="icon-btn menu-toggle" id="menuToggle">☰</button>
+
+      <a class="brand" href="#">
+        <span class="brand-mark">J</span>
+        <span class="brand-copy">
+          <strong>JEM IPTV</strong>
+          <small>PLAYER PRO</small>
+        </span>
+      </a>
+
+      <div class="topbar-center">
+        <span class="live-dot"></span>
+        YOUR IPTV, YOUR WAY
+      </div>
+
+      <button class="button button-primary top-add" id="openPlaylistModal">
+        ＋ Add Playlist
+      </button>
+    </header>
+
+    <div class="app-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-label">LIBRARY</div>
+
+        <button class="nav-item active" data-view="all">
+          <span>▦</span> All Channels
+          <b id="allCount">0</b>
+        </button>
+
+        <button class="nav-item" data-view="favorites">
+          <span>★</span> Favorites
+          <b id="favoriteCount">0</b>
+        </button>
+
+        <button class="nav-item" data-view="recent">
+          <span>◷</span> Recently Played
+        </button>
+
+        <div class="sidebar-label section-label">
+          YOUR PLAYLISTS
+        </div>
+
+        <div id="playlistList" class="playlist-list">
+          <p class="sidebar-empty">No playlists added yet.</p>
+        </div>
+
+        <button class="nav-item add-source" id="sidebarAdd">
+          <span>＋</span> Add playlist
+        </button>
+
+        <div class="sidebar-bottom">
+          <div class="mini-brand">
+            <span class="brand-mark small-mark">J</span>
+            <div>
+              <strong>Jem IPTV Pro</strong>
+              <small>Version 2.0</small>
+            </div>
+          </div>
+          <p>Play streams you are authorized to access.</p>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+
+        <!-- VIDEO PLAYER -->
+        <section class="player-section">
+
+          <div class="video-wrap">
+            <video
+              id="video"
+              controls
+              playsinline
+              preload="metadata"
+              poster="assets/player-poster.svg">
+            </video>
+
+            <div class="player-empty" id="playerEmpty">
+              <div class="play-emblem">▶</div>
+              <h2>Ready when you are</h2>
+              <p>Select a channel or add your IPTV playlist</p>
+            </div>
+          </div>
+
+          <div class="now-playing">
+            <div class="now-info">
+              <span class="live-pill">
+                <i></i> LIVE
+              </span>
+
+              <div class="now-text">
+                <strong id="playingTitle">Nothing playing</strong>
+                <small id="playingSubtitle">
+                  Choose a channel to start watching
+                </small>
+              </div>
+            </div>
+
+            <button class="icon-btn" id="fullscreenBtn">
+              ⛶
+            </button>
+          </div>
+        </section>
+
+        <!-- CHANNEL LIBRARY -->
+        <section class="content-section">
+
+          <div class="welcome-row">
+            <div>
+              <p class="eyebrow">YOUR ENTERTAINMENT HUB</p>
+              <h1 id="pageTitle">All Channels</h1>
+              <p class="page-subtitle">
+                Browse your channels and discover what's on.
+              </p>
+            </div>
+
+            <div class="channel-total">
+              <strong id="totalCount">0</strong>
+              <span>CHANNELS</span>
+            </div>
+          </div>
+
+          <!-- SEARCH AND FILTER -->
+          <div class="toolbar">
+
+            <label class="search-box">
+              <span>⌕</span>
+              <input
+                id="searchInput"
+                type="search"
+                placeholder="Search channels, categories..."
+                autocomplete="off">
+              <kbd>⌘ K</kbd>
+            </label>
+
+            <select id="categorySelect">
+              <option value="">All categories</option>
+            </select>
+
+            <select id="sortSelect">
+              <option value="name">Name A–Z</option>
+              <option value="name-desc">Name Z–A</option>
+              <option value="category">Category</option>
+            </select>
+
+          </div>
+
+          <div class="section-heading">
+            <h2 id="sectionTitle">Explore channels</h2>
+            <span id="resultCount">0 results</span>
+          </div>
+
+          <div id="channelGrid" class="channel-grid"></div>
+
+          <div class="load-more-wrap">
+            <button class="button button-quiet" id="loadMore" hidden>
+              Load more channels
+            </button>
+          </div>
+
+        </section>
+
+        <footer class="footer">
+          Jem IPTV Player Pro
+          <span>•</span>
+          Your IPTV, your way.
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ADD PLAYLIST MODAL -->
+  <div class="modal-backdrop" id="playlistModal" aria-hidden="true">
+
+    <section class="modal" role="dialog" aria-modal="true">
+
+      <button
+        class="modal-close icon-btn"
+        id="closePlaylistModal">
+        ×
+      </button>
+
+      <div class="modal-icon">＋</div>
+
+      <p class="eyebrow">BUILD YOUR LIBRARY</p>
+
+      <h2>Add IPTV Playlist</h2>
+
+      <p class="modal-description">
+        Import an M3U/M3U8 file or paste a playlist URL.
+      </p>
+
+      <form id="playlistForm">
+
+        <label class="form-label" for="playlistName">
+          Playlist name
+        </label>
+
+        <input
+          class="form-control"
+          id="playlistName"
+          type="text"
+          placeholder="My IPTV playlist"
+          maxlength="60">
+
+        <label class="form-label" for="playlistUrl">
+          Playlist URL
+        </label>
+
+        <input
+          class="form-control"
+          id="playlistUrl"
+          type="url"
+          placeholder="https://example.com/playlist.m3u">
+
+        <div class="or-divider">
+          <span>OR IMPORT A FILE</span>
+        </div>
+
+        <label class="file-drop" for="playlistFile">
+          <span class="upload-icon">⇧</span>
+
+          <span>
+            <strong>Choose M3U / M3U8 file</strong>
+            <small id="fileName">
+              Browse files on your device
+            </small>
+          </span>
+
+          <input
+            id="playlistFile"
+            type="file"
+            accept=".m3u,.m3u8,audio/x-mpegurl,text/plain">
+        </label>
+
+        <p class="form-status" id="formStatus" role="status"></p>
+
+        <button
+          class="button button-primary submit-button"
+          type="submit"
+          id="importButton">
+          Import playlist <span>→</span>
+        </button>
+
+      </form>
+
+      <p class="legal-note">
+        Only add playlists and streams you are authorized to access.
+      </p>
+
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+</body>
+</html>
