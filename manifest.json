@@ -1,0 +1,18 @@
+{
+  "name": "Jem IPTV Player Pro",
+  "short_name": "Jem IPTV",
+  "description": "A modern playlist-based IPTV web player.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d0f10",
+  "theme_color": "#101214",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
