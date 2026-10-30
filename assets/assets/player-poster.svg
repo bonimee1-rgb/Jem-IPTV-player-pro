@@ -1,0 +1,33 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#191b20"/>
+      <stop offset="100%" stop-color="#08090b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+
+  <circle cx="640" cy="300" r="105" fill="#ff7900" opacity=".12"/>
+  <circle cx="640" cy="300" r="78" fill="#ff7900"/>
+
+  <path d="M615 255 L690 300 L615 345 Z" fill="#ffffff"/>
+
+  <text x="640" y="460"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="54"
+        font-weight="bold"
+        fill="#ffffff">
+    JEM IPTV PRO
+  </text>
+
+  <text x="640" y="515"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="25"
+        fill="#a0a0a0">
+    Your Entertainment Starts Here
+  </text>
+</svg>
