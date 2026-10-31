@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101114">
+  <meta name="description" content="Jem IPTV Player Pro">
+  <title>Jem IPTV Player Pro</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icon.svg">
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">JEM <span>IPTV PRO</span></div>
+
+  <button class="primary-btn" id="addPlaylistBtn">
+    + Add Playlist
+  </button>
+</header>
+
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <button class="active" data-filter="all">
+      ⌂ All Channels
+    </button>
+
+    <button data-filter="favorites">
+      ★ Favorites
+    </button>
+  </aside>
+
+  <main class="main-content">
+
+    <h2>Live TV</h2>
+
+    <p style="color:#9297a1;margin:8px 0 18px">
+      Welcome to Jem IPTV Player Pro
+    </p>
+
+    <section class="player-section">
+
+      <video
+        id="videoPlayer"
+        controls
+        playsinline
+        webkit-playsinline
+        preload="none"
+        poster="assets/player-poster.svg">
+      </video>
+
+      <div class="player-info">
+        <strong id="nowPlaying">
+          Select a channel to start watching
+        </strong>
+      </div>
+
+    </section>
+
+    <div class="controls">
+
+      <input
+        type="search"
+        id="searchInput"
+        class="search-box"
+        placeholder="Search channels..."
+      >
+
+      <button
+        class="primary-btn"
+        id="fullscreenBtn"
+        type="button">
+        ⛶ Full Screen
+      </button>
+
+    </div>
+
+    <h3 style="margin-bottom:15px">
+      Channels
+    </h3>
+
+    <div id="channelGrid" class="channel-grid">
+
+      <div class="empty-state">
+        Add your IPTV playlist to see channels here.
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<!-- ADD PLAYLIST MODAL -->
+
+<div class="modal" id="playlistModal">
+
+  <div class="modal-content">
+
+    <h2>Add IPTV Playlist</h2>
+
+    <label for="playlistUrl">
+      Playlist URL (M3U / M3U8)
+    </label>
+
+    <input
+      id="playlistUrl"
+      class="input-field"
+      type="url"
+      placeholder="https://example.com/playlist.m3u"
+    >
+
+    <p style="text-align:center;color:#9297a1;margin:12px">
+      OR SELECT M3U FILE
+    </p>
+
+    <input
+      id="playlistFile"
+      class="input-field"
+      type="file"
+      accept=".m3u,.m3u8,.txt"
+    >
+
+    <div class="modal-actions">
+
+      <button
+        class="primary-btn"
+        id="importPlaylistBtn">
+        Import Playlist
+      </button>
+
+      <button
+        class="secondary-btn"
+        id="closeModalBtn">
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- JAVASCRIPT FILES -->
+
+<script src="playlist.js"></script>
+<script src="player.js"></script>
+<script src="app.js"></script>
+
+<script>
+  // Fullscreen button
+  document.getElementById("fullscreenBtn")
+    ?.addEventListener("click", function () {
+      window.JemPlayer?.toggleFullscreen();
+    });
+
+  // Register service worker
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js")
+        .catch(error => {
+          console.log("Service worker:", error);
+        });
+    });
+  }
+</script>
+
+</body>
+</html>
