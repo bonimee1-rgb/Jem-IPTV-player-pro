@@ -1,0 +1,26 @@
+
+#videoPlayer:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  object-fit: contain;
+}
+
+#videoPlayer {
+  max-height: 80vh;
+}
+
+.player-section:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  border: 0;
+  border-radius: 0;
+}
+
+.player-section:fullscreen #videoPlayer {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: contain;
+}
