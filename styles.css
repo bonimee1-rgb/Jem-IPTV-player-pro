@@ -1,0 +1,477 @@
+
+/* =================================
+   JEM IPTV PLAYER PRO
+   Premium VLC Dark Orange Theme
+================================= */
+
+:root {
+  --bg: #0c0e12;
+  --panel: #171a20;
+  --panel2: #222630;
+  --orange: #ff7900;
+  --orange2: #ff9b36;
+  --text: #ffffff;
+  --muted: #9ba2ae;
+  --border: #303640;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* HEADER */
+
+.topbar {
+  min-height: 70px;
+  padding: 12px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #15181e;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.logo span {
+  color: var(--orange);
+}
+
+/* BUTTONS */
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary-btn {
+  border: none;
+  border-radius: 9px;
+  background: var(--orange);
+  color: white;
+  padding: 11px 17px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.primary-btn:hover {
+  background: var(--orange2);
+  transform: translateY(-1px);
+}
+
+.secondary-btn {
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: white;
+  border-radius: 9px;
+  padding: 11px 17px;
+}
+
+/* MAIN LAYOUT */
+
+.app-layout {
+  display: flex;
+  min-height: calc(100vh - 70px);
+}
+
+.sidebar {
+  width: 225px;
+  flex-shrink: 0;
+  padding: 22px 14px;
+  background: #14171d;
+  border-right: 1px solid var(--border);
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 13px 15px;
+  margin-bottom: 9px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+  color: var(--orange);
+  background: #29231e;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 25px;
+}
+
+.main-content h2 {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.main-content h3 {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+/* VIDEO PLAYER */
+
+.player-section {
+  width: 100%;
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+#videoPlayer {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 600px;
+  background: #000;
+  object-fit: contain;
+}
+
+.player-info {
+  padding: 13px 16px;
+  background: #191c22;
+  color: white;
+  border-top: 1px solid var(--border);
+}
+
+#nowPlaying {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* FULL SCREEN */
+
+#videoPlayer:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  max-height: none;
+  background: #000;
+  object-fit: contain;
+}
+
+.player-section:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: #000;
+}
+
+.player-section:fullscreen #videoPlayer {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+}
+
+/* SEARCH */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 25px;
+}
+
+.search-box,
+.input-field {
+  width: 100%;
+  background: #1c2028;
+  color: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 180px;
+}
+
+.search-box:focus,
+.input-field:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 2px #ff790022;
+}
+
+.search-box::placeholder,
+.input-field::placeholder {
+  color: #89919e;
+}
+
+/* CHANNEL GRID */
+
+.channel-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(155px, 1fr)
+  );
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.channel-card {
+  position: relative;
+  min-width: 0;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.channel-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+  background: #20242c;
+}
+
+.channel-logo {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 13px;
+  border-radius: 12px;
+  background: #292e38;
+  color: var(--orange);
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.channel-name {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.channel-category {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.favorite-btn {
+  float: right;
+  background: transparent;
+  border: none;
+  color: #9ba2ae;
+  font-size: 22px;
+}
+
+.favorite-btn.active {
+  color: var(--orange);
+}
+
+/* EMPTY STATE */
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 35px 15px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+
+/* PLAYLIST MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(5px);
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 25px;
+  background: #1a1e26;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 20px 70px #0009;
+}
+
+.modal-content h2 {
+  color: white;
+  margin-bottom: 20px;
+  font-size: 23px;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.modal-content input {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* FILE INPUT */
+
+input[type="file"] {
+  color: var(--muted);
+}
+
+/* MOBILE DESIGN */
+
+@media (max-width: 700px) {
+
+  .topbar {
+    min-height: 62px;
+    padding: 10px 14px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .topbar .primary-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .app-layout {
+    display: block;
+  }
+
+  .sidebar {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar button {
+    width: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin: 0 5px 0 0;
+    padding: 10px 14px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  .main-content h2 {
+    font-size: 22px;
+  }
+
+  .player-section {
+    margin: 15px 0;
+    border-radius: 10px;
+  }
+
+  #videoPlayer {
+    aspect-ratio: 16 / 9;
+    max-height: none;
+  }
+
+  .controls {
+    gap: 8px;
+  }
+
+  .search-box {
+    min-width: 100%;
+  }
+
+  .channel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .channel-card {
+    padding: 12px;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-actions button {
+    flex: 1;
+  }
+}
+
+/* SMALL PHONES */
+
+@media (max-width: 360px) {
+  .logo {
+    font-size: 15px;
+  }
+
+  .channel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
