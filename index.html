@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0e12">
+  <meta name="description" content="Jem IPTV Player Pro">
+
+  <title>Jem IPTV Player Pro</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+
+  <script>
+    // Restore saved theme before displaying the page
+    const savedTheme = localStorage.getItem("jemTheme") || "dark";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="logo">
+    JEM <span>IPTV PRO</span>
+  </div>
+
+  <div class="header-actions">
+
+    <button id="themeToggle" class="theme-btn" type="button">
+      ☀️ Light Mode
+    </button>
+
+    <button class="primary-btn" id="addPlaylistBtn" type="button">
+      + Add Playlist
+    </button>
+
+  </div>
+
+</header>
+
+<div class="app-layout">
+
+  <aside class="sidebar">
+
+    <button class="active" data-filter="all" type="button">
+      ⌂ All Channels
+    </button>
+
+    <button data-filter="favorites" type="button">
+      ★ Favorites
+    </button>
+
+  </aside>
+
+  <main class="main-content">
+
+    <h2>Live TV</h2>
+
+    <p class="welcome-text">
+      Welcome to Jem IPTV Player Pro
+    </p>
+
+    <section class="player-section">
+
+      <div class="player-toolbar">
+
+        <button
+          type="button"
+          id="fullscreenBtn"
+          class="fullscreen-top-btn">
+          ⛶ FULL SCREEN
+        </button>
+
+      </div>
+
+      <video
+        id="videoPlayer"
+        controls
+        playsinline
+        webkit-playsinline
+        preload="none"
+        poster="./assets/player-poster.svg">
+      </video>
+
+      <div class="player-info">
+        <strong id="nowPlaying">
+          Select a channel to start watching
+        </strong>
+      </div>
+
+    </section>
+
+    <div class="controls">
+
+      <input
+        type="search"
+        id="searchInput"
+        class="search-box"
+        placeholder="Search channels..."
+        autocomplete="off">
+
+    </div>
+
+    <h3 class="channels-heading">Channels</h3>
+
+    <div id="channelGrid" class="channel-grid">
+
+      <div class="empty-state">
+        Add your IPTV playlist to see channels here.
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<!-- PLAYLIST MODAL -->
+
+<div class="modal" id="playlistModal">
+
+  <div class="modal-content">
+
+    <h2>Add IPTV Playlist</h2>
+
+    <label for="playlistUrl">
+      Playlist URL (M3U / M3U8)
+    </label>
+
+    <input
+      id="playlistUrl"
+      class="input-field"
+      type="url"
+      placeholder="https://example.com/playlist.m3u">
+
+    <p class="modal-separator">
+      OR SELECT M3U FILE
+    </p>
+
+    <input
+      id="playlistFile"
+      class="input-field"
+      type="file"
+      accept=".m3u,.m3u8,.txt">
+
+    <div class="modal-actions">
+
+      <button
+        class="primary-btn"
+        id="importPlaylistBtn"
+        type="button">
+        Import Playlist
+      </button>
+
+      <button
+        class="secondary-btn"
+        id="closeModalBtn"
+        type="button">
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script src="./playlist.js"></script>
+<script src="./player.js"></script>
+<script src="./app.js"></script>
+
+<script>
+  // DARK / LIGHT MODE
+
+  const themeToggle = document.getElementById("themeToggle");
+
+  function updateThemeButton(theme) {
+    themeToggle.textContent =
+      theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
+  }
+
+  updateThemeButton(
+    document.documentElement.getAttribute("data-theme")
+  );
+
+  themeToggle.addEventListener("click", function () {
+
+    const currentTheme =
+      document.documentElement.getAttribute("data-theme");
+
+    const newTheme =
+      currentTheme === "dark" ? "light" : "dark";
+
+    document.documentElement.setAttribute(
+      "data-theme",
+      newTheme
+    );
+
+    localStorage.setItem("jemTheme", newTheme);
+
+    updateThemeButton(newTheme);
+
+    document.querySelector('meta[name="theme-color"]')
+      .setAttribute(
+        "content",
+        newTheme === "dark" ? "#0c0e12" : "#f4f5f8"
+      );
+
+  });
+
+  // FULL SCREEN
+
+  document.getElementById("fullscreenBtn")
+    .addEventListener("click", function () {
+
+      if (window.JemPlayer) {
+        window.JemPlayer.toggleFullscreen();
+      }
+
+    });
+
+  // SERVICE WORKER
+
+  if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function () {
+
+      navigator.serviceWorker.register("./sw.js")
+        .catch(error => console.log(error));
+
+    });
+
+  }
+</script>
+
+</body>
+</html>
